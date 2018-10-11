@@ -13,7 +13,7 @@ app = Celery('weather')
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(10.0, populate_db.s(), name='Populate every 30 minutes')
+    sender.add_periodic_task(3600.0, populate_db.s(), name='Populate every hour')
 
 
 @app.task
@@ -35,4 +35,3 @@ def populate_db():
                 for weather_for_3_hour in city_weather_for_3_hours['list']:
                     dt = datetime.strptime(weather_for_3_hour['dt_txt'], '%Y-%m-%d %H:%M:%S')
                     models.City(name=city, date=dt).save()
-                break
