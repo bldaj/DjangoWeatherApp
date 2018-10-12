@@ -29,6 +29,9 @@ def populate_db():
 
     with open('weather/cities.txt') as cities_file:
         for city in cities_file:
+
+            city = city.replace('\n', '')
+
             city_weather_for_3_hours = requests.get(url.format(city)).json()
 
             if city_weather_for_3_hours['cod'] != '404':
