@@ -20,7 +20,7 @@ from rest_framework import routers
 from weather_api import views
 
 router = routers.DefaultRouter()
-router.register('weather', views.WeatherViewSet)
+router.register('weather', views.WeatherViewSet, base_name='weather')
 
 urlpatterns = [
     path('', include(router.urls)),
