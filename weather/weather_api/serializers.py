@@ -6,4 +6,4 @@ from .models import City
 class WeatherSerializer(ModelSerializer):
     class Meta:
         model = City
-        fields = ('name', 'date')
+        fields = ('name', 'date', 'temp', 'temp_min', 'temp_max')
