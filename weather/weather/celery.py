@@ -13,7 +13,7 @@ app = Celery('weather')
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(10.0, populate_db.s(), name='Populate every hour')
+    sender.add_periodic_task(3600.0, populate_db.s(), name='Populate every hour')
 
 
 @app.task
