@@ -87,3 +87,44 @@ class TestWeatherApi(APITestCase):
                 cities[0],
                 dicts_list[0]
             )
+
+    def test_get_all_weather_for_one_city_and_one_day(self):
+        cities = [
+            {
+                'name': 'andorra',
+                'date': datetime.now(),
+                'temp': -278.0,
+                'temp_min': -278.0,
+                'temp_max': -278.0
+            },
+            {
+                'name': 'andorra',
+                'date': datetime.now(),
+                'temp': -278.0,
+                'temp_min': -278.0,
+                'temp_max': -278.0
+            },
+            {
+                'name': 'aixirivall',
+                'date': datetime.now(),
+                'temp': -278.0,
+                'temp_min': -278.0,
+                'temp_max': -278.0
+            }
+        ]
+
+        for city in cities:
+            create_city(name=city['name'], date=city['date'])
+
+        for city in cities:
+            city['date'] = convert_datetime_to_str(city['date'])
+
+        response = self.client.get('/weather/?name={0}&day={1}'.format(cities[0]['name'], datetime.now().day))
+
+        dicts_list = convert_ordered_dict_to_list_of_dicts(list(response.data['results']))
+
+        if len(dicts_list) == 2:
+            self.assertEqual(
+                cities[0:2],
+                dicts_list
+            )
