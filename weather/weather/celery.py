@@ -25,7 +25,7 @@ def test_task(txt):
 def populate_db():
     from weather_api import models
 
-    url = 'http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&appid=d0068bdfb3a12607733e3b32622f9ac2'
+    url = 'http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&appid=f3e26c0ee52a2763f0a05af1a1446a0d'
 
     with open('weather/cities.txt') as cities_file:
         for city in cities_file:
@@ -34,7 +34,7 @@ def populate_db():
 
             city_weather_for_3_hours = requests.get(url.format(city)).json()
 
-            if city_weather_for_3_hours['cod'] != '404':
+            if city_weather_for_3_hours['cod'] != '404' and city_weather_for_3_hours['cod'] != 401:
                 for weather_for_3_hour in city_weather_for_3_hours['list']:
                     dt = datetime.strptime(weather_for_3_hour['dt_txt'], '%Y-%m-%d %H:%M:%S')
                     temp = weather_for_3_hour['main']['temp']
